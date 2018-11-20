@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +35,35 @@ public class Main {
                 })
                 .collect(Collectors.toList());
 
-        users.forEach(Main::printUser);
+        // print some users
+        users
+                .stream()
+                .limit(10)
+                .forEach(Main::printUser);
+
+        List<User> listClone1 = new ArrayList<>(users);
+        List<User> listClone2 = new ArrayList<>(users);
+        List<User> listClone3 = new ArrayList<>(users);
+
+        Comparator<? super User> firstNameComparator = new FirstNameComparator();
+
+        // different ways to sort by names
+        listClone1.sort((a, b) -> a.first_name.compareTo(b.first_name));
+        listClone2.sort(Comparator.comparing(a -> a.first_name));
+        listClone3.sort(firstNameComparator);
+
+        System.out.println("---------------------");
+        listClone1
+                .stream()
+                .limit(10)
+                .forEach(Main::printUser);
+
+        System.out.println("---------------------");
+        listClone2
+                .stream()
+                .limit(10)
+                .forEach(Main::printUser);
+
     }
 
     private static void printUser(User user) {
