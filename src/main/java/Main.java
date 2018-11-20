@@ -44,13 +44,22 @@ public class Main {
         List<User> listClone1 = new ArrayList<>(users);
         List<User> listClone2 = new ArrayList<>(users);
         List<User> listClone3 = new ArrayList<>(users);
+        List<User> listClone4 = new ArrayList<>(users);
+        List<User> listClone5 = new ArrayList<>(users);
 
         Comparator<? super User> firstNameComparator = new FirstNameComparator();
 
-        // different ways to sort by names
+        // different ways to sort by first_name
         listClone1.sort((a, b) -> a.first_name.compareTo(b.first_name));
         listClone2.sort(Comparator.comparing(a -> a.first_name));
         listClone3.sort(firstNameComparator);
+
+        Collections.sort(listClone4, (a, b) -> a.first_name.compareTo(b.first_name));
+
+        List<User> sorted = listClone5
+                .stream()
+                .sorted(Comparator.comparing(x -> x.first_name))
+                .collect(Collectors.toList());
 
         System.out.println("---------------------");
         listClone1
