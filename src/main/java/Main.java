@@ -73,6 +73,16 @@ public class Main {
                 .limit(10)
                 .forEach(Main::printUser);
 
+        System.out.println("---------------------");
+        System.out.println("Sort by age");
+        listClone1.sort(Comparator.comparingInt(x -> x.age));
+        listClone1
+                .subList(0, 10)
+                .forEach(Main::printUser);
+        System.out.println("...");
+        listClone1
+                .subList(listClone1.size() - 10, listClone1.size())
+                .forEach(Main::printUser);
     }
 
     private static void printUser(User user) {
