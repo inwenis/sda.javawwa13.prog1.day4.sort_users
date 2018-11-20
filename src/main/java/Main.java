@@ -83,10 +83,21 @@ public class Main {
         listClone1
                 .subList(listClone1.size() - 10, listClone1.size())
                 .forEach(Main::printUser);
+
+        System.out.println("---------------------");
+        System.out.println("Sort by PESEL");
+        listClone1.sort(Comparator.comparing(x -> x.insurance_number));
+        listClone1
+                .subList(0, 10)
+                .forEach(Main::printUser);
+        System.out.println("...");
+        listClone1
+                .subList(listClone1.size() - 10, listClone1.size())
+                .forEach(Main::printUser);
     }
 
     private static void printUser(User user) {
-        String line = String.format("%-12s %-12s %2d", user.first_name, user.last_name, user.age);
+        String line = String.format("%-12s %-12s %2d %s", user.first_name, user.last_name, user.age, user.insurance_number);
         System.out.println(line);
     }
 }
