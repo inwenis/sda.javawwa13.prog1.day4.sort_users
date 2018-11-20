@@ -41,59 +41,71 @@ public class Main {
                 .limit(10)
                 .forEach(Main::printUser);
 
-        List<User> listClone1 = new ArrayList<>(users);
-        List<User> listClone2 = new ArrayList<>(users);
-        List<User> listClone3 = new ArrayList<>(users);
-        List<User> listClone4 = new ArrayList<>(users);
-        List<User> listClone5 = new ArrayList<>(users);
-
         Comparator<? super User> firstNameComparator = new FirstNameComparator();
 
+        List<User> listClone = new ArrayList<>(users);
+
         // different ways to sort by first_name
-        listClone1.sort((a, b) -> a.first_name.compareTo(b.first_name));
-        listClone2.sort(Comparator.comparing(a -> a.first_name));
-        listClone3.sort(firstNameComparator);
+        listClone.sort((a, b) -> a.first_name.compareTo(b.first_name));
+        listClone.sort(Comparator.comparing(a -> a.first_name));
+        listClone.sort(firstNameComparator);
+        Collections.sort(listClone, (a, b) -> a.first_name.compareTo(b.first_name));
 
-        Collections.sort(listClone4, (a, b) -> a.first_name.compareTo(b.first_name));
-
-        List<User> sorted = listClone5
+        List<User> sorted = listClone
                 .stream()
                 .sorted(Comparator.comparing(x -> x.first_name))
                 .collect(Collectors.toList());
 
         System.out.println("---------------------");
-        listClone1
+        listClone = new ArrayList<>(users);
+        listClone
                 .stream()
                 .limit(10)
                 .forEach(Main::printUser);
 
         System.out.println("---------------------");
-        listClone2
+        listClone = new ArrayList<>(users);
+        listClone
                 .stream()
                 .limit(10)
                 .forEach(Main::printUser);
 
         System.out.println("---------------------");
         System.out.println("Sort by age");
-        listClone1.sort(Comparator.comparingInt(x -> x.age));
-        listClone1
+        listClone = new ArrayList<>(users);
+        listClone.sort(Comparator.comparingInt(x -> x.age));
+        listClone
                 .subList(0, 10)
                 .forEach(Main::printUser);
         System.out.println("...");
-        listClone1
-                .subList(listClone1.size() - 10, listClone1.size())
+        listClone
+                .subList(listClone.size() - 10, listClone.size())
                 .forEach(Main::printUser);
 
         System.out.println("---------------------");
         System.out.println("Sort by PESEL");
-        listClone1.sort(Comparator.comparing(x -> x.insurance_number));
-        listClone1
+        listClone = new ArrayList<>(users);
+        listClone.sort(Comparator.comparing(x -> x.insurance_number));
+        listClone
                 .subList(0, 10)
                 .forEach(Main::printUser);
         System.out.println("...");
-        listClone1
-                .subList(listClone1.size() - 10, listClone1.size())
+        listClone
+                .subList(listClone.size() - 10, listClone.size())
                 .forEach(Main::printUser);
+
+        System.out.println("---------------------");
+        System.out.println("Sort by age then by name");
+        listClone = new ArrayList<>(users);
+        listClone.sort(Comparator.comparing((User x) -> x.age).thenComparing((User x) -> x.first_name));
+        listClone
+                .subList(0, 10)
+                .forEach(Main::printUser);
+        System.out.println("...");
+        listClone
+                .subList(listClone.size() - 10, listClone.size())
+                .forEach(Main::printUser);
+
     }
 
     private static void printUser(User user) {
